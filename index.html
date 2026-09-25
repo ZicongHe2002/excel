@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#163f35" />
+    <meta name="description" content="上传商品 Excel，搜索添加或批量粘贴客户货号，原样提取完整商品行，一键生成选款表。文件仅在本机处理。" />
+    <title>款集 · 货号选款工作台</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="rail" aria-label="应用标识">
+        <a class="brand-mark" href="#main" aria-label="款集选款工作台"><svg viewBox="0 0 28 28" fill="none" aria-hidden="true"><rect x="4" y="3" width="20" height="22" rx="4" stroke="currentColor" stroke-width="1.8"/><path d="M4 10h20M11 10v15M11 17h13" stroke="currentColor" stroke-width="1.8"/></svg></a>
+        <div class="rail-active" title="选款工作台"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/></svg><span class="sr-only">当前页面：选款工作台</span></div>
+        <div class="rail-bottom" aria-hidden="true">K.</div>
+      </aside>
+      <div class="app-body">
+        <header class="topbar">
+          <div class="wordmark">款集 <span class="wordmark-divider"></span><span class="workspace-label">选款工作台</span></div>
+          <div class="topbar-actions"><span class="local-status"><span class="status-dot"></span>本机处理，安心使用</span><button id="help-button" class="text-button help-button" type="button"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="7.3" stroke="currentColor" stroke-width="1.4"/><path d="M8.2 7.4a1.9 1.9 0 0 1 3.6.8c0 1.6-1.8 1.7-1.8 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="10" cy="13.6" r=".8" fill="currentColor"/></svg>使用说明</button></div>
+        </header>
+
+        <main id="main" class="main-content">
+          <section class="hero" aria-labelledby="page-title">
+            <div class="hero-copy"><div class="eyebrow"><span></span> LESS COPYING. MORE SELECTING.</div><h1 id="page-title">让货号，<br class="mobile-break" />变成<span>选款表。</span></h1><p class="hero-description">放入商品资料，搜索或粘贴货号。整款信息，原样汇总。</p><div class="feature-list"><span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8 3 3 6-6"/></svg>全部颜色一起提取</span><span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8 3 3 6-6"/></svg>图片与格式完整保留</span><span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8 3 3 6-6"/></svg>多个来源一份汇总</span></div></div>
+            <div class="hero-visual" aria-hidden="true"><div class="visual-dot-grid"></div><div class="mini-sheet"><div class="mini-sheet-top"><span class="tiny-sheet-icon">▦</span><span>选款清单.xlsx</span><span class="mini-sheet-check">✓</span></div><div class="mini-table"><div></div><div></div><div></div><div></div><div class="cell-sku">LR059</div><div class="cell-line"></div><div class="cell-line short"></div><div class="cell-swatch"></div><div class="cell-sku">T026</div><div class="cell-line"></div><div class="cell-line short"></div><div class="cell-swatch muted"></div></div></div><div class="visual-badge"><svg viewBox="0 0 20 20" fill="none"><path d="m4 10 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>整款，一次到位</div></div>
+          </section>
+
+          <div class="workflow-label"><span>你的选款工作区</span><span class="workflow-steps">上传资料 <i>→</i> 输入货号 <i>→</i> 导出 Excel</span></div>
+
+          <div class="workspace-grid">
+            <section class="panel source-panel" aria-labelledby="source-title">
+              <div class="panel-heading"><div class="panel-title-row"><span class="step-number">01</span><h2 id="source-title">商品资料</h2></div><span id="file-count" class="count-badge">0 份文件</span></div>
+              <p class="panel-description">添加原始 Excel，可同时读取多份商品表。</p>
+              <input id="file-input" class="sr-only" type="file" accept=".xlsx" multiple aria-label="选择商品 Excel 文件" />
+              <button id="drop-zone" class="drop-zone" type="button" aria-describedby="upload-hint"><span class="upload-icon"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M18 4H8a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V12L18 4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M18 4v8h8M16 23V15m-3 3 3-3 3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="drop-zone-title">拖入 Excel 文件，或 <strong>点击选择</strong></span><span id="upload-hint" class="drop-zone-hint">支持 .xlsx · 可一次添加多份</span></button>
+              <div class="file-list-heading"><span>已添加的文件</span><button id="clear-files" class="text-button subtle-button" type="button" disabled>清空</button></div>
+              <div id="file-list" class="file-list"><div class="empty-files"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10H3V7Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M3 11h18" stroke="currentColor" stroke-width="1.4"/></svg><span>商品资料会显示在这里</span></div></div>
+              <div id="import-notes" class="import-notes" aria-live="polite"></div>
+              <section class="sku-search-section" aria-labelledby="sku-search-title">
+                <div class="sku-search-heading"><h3 id="sku-search-title">查找货号</h3><span id="catalog-count" class="count-badge">0 个货号</span></div>
+                <label class="sr-only" for="sku-search">搜索商品货号</label>
+                <div class="sku-search-field"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="m12.5 12.5 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><input id="sku-search" type="search" placeholder="输入完整或部分货号，例如 H140" spellcheck="false" autocapitalize="characters" autocomplete="off" aria-describedby="search-hint" disabled /></div>
+                <p id="search-hint" class="sku-search-hint">找到货号后可复制，或加入右侧清单。全部颜色一起选入。</p>
+                <div id="sku-results" class="sku-results" role="list" tabindex="0" aria-label="货号搜索结果"></div>
+                <button id="search-more" class="text-button sku-search-more" type="button" hidden>显示更多</button>
+                <p id="search-status" class="sku-search-status" aria-live="polite" role="status"></p>
+              </section>
+              <div class="source-footer"><svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="m9 2 5.5 2v4.5c0 3-2.3 5.5-5.5 7-3.2-1.5-5.5-4-5.5-7V4L9 2Z" stroke="currentColor" stroke-width="1.3"/><path d="m6.3 8.6 1.9 1.9 3.5-3.6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span>文件仅在当前浏览器处理，不会上传服务器</span></div>
+            </section>
+
+            <section class="panel selection-panel" aria-labelledby="selection-title">
+              <div class="panel-heading"><div class="panel-title-row"><span class="step-number">02</span><h2 id="selection-title">客户货号</h2></div><div class="selection-heading-actions"><button id="copy-codes" class="text-button subtle-button" type="button" disabled>复制清单</button><button id="clear-codes" class="text-button subtle-button" type="button" disabled>清空输入</button></div></div>
+              <p class="panel-description" id="sku-hint">搜索货号逐个加入，也可批量粘贴，用换行、空格或逗号分隔。</p>
+              <label class="sr-only" for="sku-input">客户货号清单</label><div class="textarea-wrap"><textarea id="sku-input" spellcheck="false" autocapitalize="characters" autocomplete="off" aria-describedby="sku-hint" placeholder="例如：&#10;LR059&#10;T026&#10;H140"></textarea><div class="textarea-footer"><span>按完整货号匹配 · 重复输入自动去重</span><span id="sku-count">0 个货号</span></div></div>
+              <p id="copy-status" class="sku-search-status" role="status" aria-live="polite"></p>
+              <div id="match-summary" class="match-summary" aria-live="polite"><span class="match-pill"><span class="summary-dot neutral"></span>已匹配 <strong id="matched-count">0</strong></span><span class="match-pill"><span class="summary-dot amber"></span>未找到 <strong id="missing-count">0</strong></span><span id="duplicate-note" class="duplicate-note"></span></div>
+              <div id="missing-notice" class="missing-notice" hidden></div>
+              <div class="export-options"><label for="filename-input">导出文件名 <span>（选填）</span></label><div class="filename-field"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M11 2.5H5a1.5 1.5 0 0 0-1.5 1.5v12A1.5 1.5 0 0 0 5 17.5h10a1.5 1.5 0 0 0 1.5-1.5V8L11 2.5Z" stroke="currentColor" stroke-width="1.3"/><path d="M11 2.5V8h5.5" stroke="currentColor" stroke-width="1.3"/></svg><input id="filename-input" type="text" maxlength="100" placeholder="选款表" autocomplete="off" /><span>.xlsx</span></div></div>
+              <button id="export-button" class="export-button" type="button" disabled><svg viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M11 3v10m-4-4 4 4 4-4M4 14v4h14v-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="export-label">生成并下载选款表</span><span class="button-arrow" aria-hidden="true">↗</span></button>
+              <p class="export-caption" id="export-caption">添加商品资料并输入货号，即可开始选款</p>
+            </section>
+          </div>
+
+          <section id="result-panel" class="result-panel" aria-live="polite" hidden><span id="result-icon" class="result-icon" aria-hidden="true">✓</span><div class="result-copy"><h2 id="result-title"></h2><p id="result-description"></p><div id="result-warnings"></div></div><button id="dismiss-result" class="icon-button" type="button" aria-label="关闭导出结果">×</button></section>
+          <div class="bottom-note"><span class="note-icon" aria-hidden="true">i</span><p>一个货号对应几行，就完整提取几行。所有颜色、图片及原表信息一起保留；不同来源分别放入工作表。</p></div>
+          <footer class="page-footer"><span>款集 <span class="footer-divider">/</span> 把时间留给选款</span><span>本地文件工具 <span class="footer-version">V1.1</span></span></footer>
+        </main>
+      </div>
+    </div>
+
+    <dialog id="help-dialog" class="help-dialog"><div class="dialog-heading"><div><span class="eyebrow">QUICK GUIDE</span><h2>三步完成客户选款</h2></div><button id="close-help" class="icon-button" type="button" aria-label="关闭使用说明">×</button></div><ol class="help-steps"><li><strong>添加商品 Excel</strong><p>支持 .xlsx 格式。可选择多份文件，自动识别货号或款号列。</p></li><li><strong>搜索添加或粘贴货号</strong><p>在“查找货号”输入完整或部分货号，逐个加入清单，也可复制货号或批量粘贴客户清单。每个货号的所有颜色和完整行块都会提取，重复输入自动去重。</p></li><li><strong>生成并下载</strong><p>保留原表表头、图片、合并单元格及格式。多个来源匹配到同一货号时全部保留，不同来源分工作表输出。</p></li></ol><div class="help-note">未找到的货号会在页面提示，其他已匹配货号仍可导出。关闭或刷新页面后，需重新添加文件。</div><button id="help-done" class="export-button" type="button">开始选款</button></dialog>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

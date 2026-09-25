@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: sku-selection
+    runtime: static
+    buildCommand: test -s public/index.html
+    staticPublishPath: public
+    autoDeployTrigger: commit

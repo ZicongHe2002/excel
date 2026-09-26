@@ -1,10 +1,6 @@
-# 选款助手：上传到 Render
+# 选款助手 · GitHub 上传文件
 
-发布后，把 Render 生成的网址发给别人，对方用浏览器打开即可使用。整个过程通过网页完成，不需要安装开发软件或运行终端命令。
-
-## 1. 解压上传包
-
-双击 `选款助手-Render上传包.zip`，打开解压后的文件夹；也可以直接使用项目中现成的 `Render上传包` 文件夹。里面应有：
+网站已经打包完成，只需上传以下三项：
 
 ```text
 public/
@@ -13,58 +9,25 @@ render.yaml
 README.md
 ```
 
-`public/index.html` 是已经打包完成的网站。上传包不包含商品 Excel；这里用到的 `render.yaml` 已准备好，按下面步骤操作时不需要编辑它。
+## 上传到 GitHub
 
-## 2. 上传到 GitHub
+打开你的 `excel` 仓库，选择 **Add file → Upload files**，把 `public` 文件夹、`render.yaml` 和 `README.md` 拖进去，覆盖同名文件并提交。
 
-1. 登录 [GitHub](https://github.com/)，右上角 **＋ → New repository**。
-2. Repository name 填 `sku-selection`，可见性选择 **Private**，勾选 **Add a README file**，点击 **Create repository**。建立仓库的界面说明见 [GitHub 官方文档](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository)。
-3. 在新仓库首页点击 **Add file → Upload files**。
-4. 从上传包文件夹中，把 **`public` 文件夹、`render.yaml`、`README.md` 三项一起拖进去**。保留 `public` 文件夹这一层；上传的 README 可以替换刚才自动生成的 README。
-5. 提交说明填写 `上线选款助手`，选择 **Commit directly to the main branch**，再点击 **Commit changes**。文件上传步骤见 [GitHub 官方文档](https://docs.github.com/en/repositories/working-with-files/managing-files/adding-a-file-to-a-repository)。
+保留 `public` 文件夹这一层，仓库中的网页路径必须是 `public/index.html`。若使用压缩包，请先解压，再上传其中这三项；不要直接上传 ZIP 或外层文件夹。
 
-上传完成后，仓库首页应直接看到 `public`、`render.yaml` 和 `README.md`，点进 `public` 能看到 `index.html`。**不要只上传 ZIP，也不要把外层 `Render上传包` 文件夹一起拖进去。**
+## Render 设置
 
-## 3. 在 Render 创建网站
+现有网站保持以下设置即可：
 
-1. 登录 [Render 控制台](https://dashboard.render.com/)。
-2. 点击 **New → Static Site**。
-3. 连接 GitHub；在授权页面允许 Render 访问刚才的 `sku-selection` 仓库，然后选择该仓库并点击 **Connect**。
-4. 按下表填写。Render 的各字段作用见 [官方部署说明](https://render.com/docs/your-first-deploy)。
+- 类型：Static Site
+- Root Directory：留空
+- Build Command：`test -s public/index.html`
+- Publish Directory：`public`
 
-| Render 字段 | 填写内容 |
-| --- | --- |
-| Name | `sku-selection`；若重名，可改成其他英文名称 |
-| Branch | `main`；如果 GitHub 中的分支名不同，选择实际分支 |
-| Root Directory | **留空** |
-| Build Command | `test -s public/index.html` |
-| Publish Directory | `public` |
+提交后等待 Render 部署完成，再打开原网站。无需安装依赖或运行 npm 命令。
 
-Build Command 直接复制上表内容，前后不用加引号。网站已经打包完成，这条命令只检查首页文件是否存在。不需要设置 Start Command、数据库或环境变量。
+## 使用
 
-5. 点击页面底部 **Deploy Static Site / Create Static Site**（按钮名称可能随界面版本变化）。
-6. 等待部署成功，打开页面上显示的 `https://…onrender.com` 网址。这个网址就是发给别人使用的链接。Render 为静态网站提供网址，并会在所选分支更新后自动重新部署。[Render 静态网站说明](https://render.com/docs/static-sites)
+导入 `.xlsx` 商品表，搜索或粘贴货号，导出包含该货号全部颜色与完整行的选款 Excel。
 
-## 4. 打开网址后怎么用
-
-1. 每位使用者导入自己电脑上的一份或多份 `.xlsx`。
-2. 搜索货号并逐个加入清单，或直接粘贴一批货号。
-3. 按使用场景选择“原样复制版”或“通用图片版”，再点击导出，下载包含对应货号完整行、全部颜色及图片的 Excel。
-
-Excel 在使用者自己的浏览器中处理并自动保存原始副本，不会上传到 Render，也不会在不同使用者之间共享。看到“已保存在此浏览器”后，刷新或重新打开同一网址即可自动恢复，无需再次选择文件。手机、电脑以及 Safari、微信内置浏览器分别保存，不会互相同步；建议固定使用同一个浏览器。清理网站数据、无痕模式或浏览器自动回收空间可能导致副本丢失，请保留原文件。
-
-点击文件旁的 × 或“清空本地资料”会删除浏览器中的对应副本，不影响设备上的原始 Excel。库存、价格更新后，请移除旧表再添加新版。存储失败时会显示“仅本次可用 · 未保存”，本次仍能正常选款导出。
-
-当前网站没有登录入口，拿到网址的人可以打开工具，即使 GitHub 仓库设置为 Private。
-
-默认“原样复制版”按原有形式复制 WPS 单元格图片，适合用 **WPS** 打开。微信直接预览若只显示图片编号或公式，可选“通用图片版”重新导出：图片将转换成普通 Excel 图片，原图不压缩，导出文件名带 `_通用图片版`。具体显示效果取决于预览器，若仍不显示可用 WPS 打开。
-
-## 5. 以后更新网站
-
-拿到新版本上传包后，在 GitHub 仓库中打开 `public` 文件夹，点击 **Add file → Upload files**，上传新版 `index.html` 覆盖同名文件，并提交到 Render 使用的分支。Render 会自动部署更新，原网址保持不变。[自动部署说明](https://render.com/docs/static-sites)
-
-## 遇到问题时
-
-- **Render 找不到仓库：**检查 GitHub 授权是否包含 `sku-selection`；Private 仓库需要明确授予 Render 访问权限。
-- **部署失败，提示找不到首页或目录：**检查仓库路径应为 `public/index.html`，而不是 `Render上传包/public/index.html`；Root Directory 留空，Publish Directory 填 `public`。
-- **看不到刚上传的版本：**检查文件已经提交成功，而且 Render 的 Branch 与 GitHub 文件所在的分支一致；等最新部署成功后再刷新网页。
+本版已包含自动保存：文件旁显示“已保存在此浏览器”后，下次用同一浏览器打开同一网址会自动恢复，无需重新选文件。手机、电脑及不同浏览器分别保存，不互相同步。移除文件或清空本地资料会删除浏览器副本；清理网站数据后需要重新导入。原始 Excel 请保留，资料更新后移除旧表再添加新版。
